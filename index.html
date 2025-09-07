@@ -1,58 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dropbox File Upload</title>
-<style>
-    body { background-color: #111; color: #fff; font-family: Arial; text-align: center; padding: 20px; }
-    input, button { margin: 10px; padding: 10px 20px; border-radius: 8px; border: none; background: linear-gradient(145deg, #222, #444); color: #0ff; cursor: pointer; font-size: 16px; }
-    input:hover, button:hover { background: #555; }
-    .file-list img { width: 150px; margin: 10px; border-radius: 8px; border: 2px solid #0ff; }
-    .file-list a { display: block; margin: 5px; color: #0ff; text-decoration: none; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pranit's Portal</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .profile {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            margin-bottom: 10px;
+        }
+
+        .profile h1 {
+            margin-bottom: 10px;
+        }
+
+        .social-buttons a {
+            margin: 5px;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ff0080, #7928ca);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .social-buttons a:hover {
+            transform: scale(1.1);
+        }
+
+        .upload-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .file-preview {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .file-preview div {
+            background: #1e1e1e;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 6px;
+            max-width: 150px;
+            word-wrap: break-word;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<h1>Upload Files to Dropbox</h1>
-<input type="file" id="fileInput" multiple>
-<button onclick="uploadFiles()">Upload</button>
+    <div class="profile">
+        <img src="your-photo.jpg" alt="Pranit Gopale">
+        <h1>Pranit Gopale</h1>
+        <div class="social-buttons">
+            <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
+            <a href="https://github.com/yourprofile" target="_blank">GitHub</a>
+            <a href="https://youtube.com/yourchannel" target="_blank">YouTube</a>
+            <a href="https://instagram.com/yourprofile" target="_blank">Instagram</a>
+        </div>
+    </div>
 
-<h2>Uploaded Files</h2>
-<div class="file-list" id="fileList"></div>
+    <div class="upload-section">
+        <h2>Upload Files</h2>
+        <input type="file" id="fileInput" multiple>
+        <button onclick="uploadFiles()">Upload</button>
 
-<script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
-<script>
-  // Dropbox Access Token
-  const ACCESS_TOKEN = "sl.u.AF_LE7dIoOKo_Xva11IQzE7UaySxEUTivmyzwfRuQ0NLtZcrvJ3774IPeQJ5sZP_BntSX1aVBJbtLYkPQ1xA-HyRgnM3gg1r3NxSJG0mnh_6Cz_1j7P220_AIJc2uuyCYmjTjytSQPc6VqvB9mTLX2Nz-LW6OOKx683OqiwpZcXeYE2y8x4RVEd6c4-cscLeSULEW3CfLlOsZilViOIYs-EIZavoSHSpyIXTvof8pGMWwmglloEeBgdn70rJZ8ikj3av3gkNH_dY9K1Xp3W3tlJ7WYdhkDIAtM8HQGrWw1FO8cDEngJGsPTCn1TnlfYgdlEavUhZJRBR-3aNXmlnUzRsyw-8jK_Pgt2p7Baz0ujtHN_axMzm-MsHqnimaySjkwZZMZY2TX2619IV4ssIDMQnQ2R18nDHI9SRkctj5TyH6jVHm5ohUnLONw-QcX6jiqH2juwzA0M1aPuQlbIqGrRYDQhLaVgAwzgMuG46x9OD3qMeuTOZoMqB-dgVQLdpf2NeiUOawVLox2iUxPqJkRFxzYi6JWbLVF1y9Dzc0TIAJY6Yrl8oOYJc6TsYJxymXH87ovitqLTNAYjLd-iFUMBstAqUF0gSxVmepY0fwHM5UbNElmGLbqbYOKPwhce22N7D4TlTd5_NuNn4hUIGOm6aK67Z27dX5Y-JJmvBMR6kWd8d3BlbU4foizCdHFW0POLIpL3XRsbva-4dcZf2ga_UgbnuDoi0izgmLQqm3ZuWqwh_46rb8j5xv8nv-zdLxnm24F3CDkCvzAdcVh3NNSRUoZ5oXvD--d2Vo-KSVU_bFdZWMid3tT8t0scHzlp4xDGhlU_MVstJQBsY1pw7MuUVTOdihAZK99trVaGlgbpDHdPB285Us6wQTmJ6KdPOSfwvzsw-575Bql-BTDFtufTmZfgN-vBqTmBcNjM43KEizui09jFY6cA8SBtHrFzCUkRT1FRVtrD7vlGu_3fygVuyFOvwvnpBvqqARJHekAi27pY3cUhdqHhSf05RKTgW_WVMJPxcwtubkwarCxcfKEOG7xypBxEpjH-gDfw9UR54DV_a4j115_2EmkCBicseJQ1JOJ8nLO-HlvPRVL32SO6xHcubAUB2UW6tBMNuSv3zogOL9w5GV-OjdPJJ47me47Zle4YcuFXNdDkFO3WwzIurIimT972YkQnbvKXtXcUfDN2XMzfpBMtD58pIdmJkttkgyDqZ-x2otMfCioChOAoaMS6CgBS-8iJkMS-lt6sh-xjfs_NKLL2xn5UsXIURfvB5Eep5uxU4fcLBV063RkafK5Hz4bfPwQvqySyAlPu8Y-EgWNyex-i2cl72UpbLo-tl-4zC0nxA_pnFXFIT3pE5fPNGVZhelo2GVHKfxLWsb93EPYMkvkqe98bWU4ulG3yP1sR5lWyEmENHeTaFBtLv";
+        <div class="file-preview" id="filePreview"></div>
+    </div>
 
-  const dbx = new Dropbox.Dropbox({ accessToken: ACCESS_TOKEN, fetch: fetch });
+    <script>
+        async function uploadFiles() {
+            const files = document.getElementById('fileInput').files;
+            if(files.length === 0) return alert("Please select files!");
 
-  async function uploadFiles() {
-    const files = document.getElementById('fileInput').files;
-    if (!files.length) return alert("Select files first!");
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                if(files[i].size > 8*1024*1024) {
+                    alert(`${files[i].name} exceeds 8MB!`);
+                    return;
+                }
+                formData.append('files', files[i]);
+            }
 
-    for (let file of files) {
-        const path = '/' + file.name;
-        try {
-            await dbx.filesUpload({ path: path, contents: file, mode: 'overwrite' });
-            const sharedLink = await dbx.sharingCreateSharedLinkWithSettings({ path: path });
-            addFileToList(sharedLink.url, file);
-        } catch (error) {
-            console.error(error);
+            const res = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await res.json();
+            if(result.success) {
+                const preview = document.getElementById('filePreview');
+                preview.innerHTML = '';
+                result.files.forEach(f => {
+                    const div = document.createElement('div');
+                    div.textContent = f;
+                    preview.appendChild(div);
+                });
+            }
         }
-    }
-    alert("Files uploaded!");
-  }
-
-  function addFileToList(url, file) {
-    const fileList = document.getElementById('fileList');
-    let displayUrl = url.replace('?dl=0', '?raw=1'); // direct file display
-    if (file.type.startsWith('image/')) {
-        fileList.innerHTML += `<a href="${url}" target="_blank"><img src="${displayUrl}" alt="${file.name}"></a>`;
-    } else {
-        fileList.innerHTML += `<a href="${url}" target="_blank">${file.name}</a>`;
-    }
-  }
-</script>
+    </script>
 </body>
 </html>
