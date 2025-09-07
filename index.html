@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pranit - Personal Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px 50px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 300% 100%;
+            animation: gradient 3s ease infinite;
+        }
+
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .name {
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .title {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            font-size: 14px;
+            min-height: 60px;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .linkedin { background: linear-gradient(135deg, #0077B5, #005885); }
+        .twitter { background: linear-gradient(135deg, #1DA1F2, #0d8bd9); }
+        .github { background: linear-gradient(135deg, #333, #24292e); }
+        .instagram { background: linear-gradient(135deg, #E4405F, #C13584, #833AB4); }
+        .email { background: linear-gradient(135deg, #EA4335, #DB4437); }
+        .whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
+
+        .social-link i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .contact-info {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .contact-info h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .contact-item i {
+            margin-right: 12px;
+            width: 20px;
+            color: #667eea;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-elements::before,
+        .floating-elements::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .floating-elements::before {
+            width: 100px;
+            height: 100px;
+            top: 20px;
+            right: 30px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-elements::after {
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            left: 40px;
+            animation: float 4s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 40px 30px;
+                margin: 10px;
+            }
+
+            .name {
+                font-size: 32px;
+            }
+
+            .social-links {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-image {
+                width: 120px;
+                height: 120px;
+                font-size: 48px;
+            }
+        }
+
+        /* Font Awesome Icons */
+        .fa {
+            font-family: 'Font Awesome 5 Brands', 'Font Awesome 5 Free';
+            font-weight: 900;
+        }
+
+        /* Custom icons using Unicode */
+        .icon-linkedin::before { content: "💼"; }
+        .icon-twitter::before { content: "🐦"; }
+        .icon-github::before { content: "⚡"; }
+        .icon-instagram::before { content: "📷"; }
+        .icon-email::before { content: "✉️"; }
+        .icon-whatsapp::before { content: "💬"; }
+        .icon-phone::before { content: "📱"; }
+        .icon-location::before { content: "📍"; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="floating-elements"></div>
+        
+        <div class="profile-image">
+            P
+        </div>
+
+        <h1 class="name">Pranit</h1>
+        <p class="title">Developer & Tech Enthusiast</p>
+
+        <div class="social-links">
+            <a href="https://linkedin.com/in/your-profile" class="social-link linkedin" target="_blank" rel="noopener">
+                <span class="icon-linkedin"></span>
+                LinkedIn
+            </a>
+
+            <a href="https://twitter.com/your-handle" class="social-link twitter" target="_blank" rel="noopener">
+                <span class="icon-twitter"></span>
+                Twitter
+            </a>
+
+            <a href="https://github.com/your-username" class="social-link github" target="_blank" rel="noopener">
+                <span class="icon-github"></span>
+                GitHub
+            </a>
+
+            <a href="https://instagram.com/your-handle" class="social-link instagram" target="_blank" rel="noopener">
+                <span class="icon-instagram"></span>
+                Instagram
+            </a>
+
+            <a href="mailto:your.email@gmail.com" class="social-link email">
+                <span class="icon-email"></span>
+                Email
+            </a>
+
+            <a href="https://wa.me/919970343404" class="social-link whatsapp" target="_blank" rel="noopener">
+                <span class="icon-whatsapp"></span>
+                WhatsApp
+            </a>
+        </div>
+
+        <div class="contact-info">
+            <h3>Get In Touch</h3>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <span class="icon-phone"></span>
+                    +91 9970343404
+                </div>
+                <div class="contact-item">
+                    <span class="icon-location"></span>
+                    India
+                </div>
+                <div class="contact-item">
+                    <span class="icon-email"></span>
+                    Available for opportunities
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add click animations
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.4);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS animation for ripple
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Profile image click effect
+        document.querySelector('.profile-image').addEventListener('click', function() {
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            }, 150);
+        });
+    </script>
+</body>
+</html>
